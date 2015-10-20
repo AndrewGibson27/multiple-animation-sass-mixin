@@ -6,7 +6,6 @@ Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-sep
 @mixin multiple-animations($list) {
 	$webkit: null;
 	$moz: null;
-	$ms: null;
 	$o: null;
 	$normal: null;
 	
@@ -16,14 +15,12 @@ Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-sep
 		@if $i == length($list) {
 			$webkit: $webkit $anim;
 			$moz: $moz + $anim;
-			$ms: $ms + $anim;
 			$o: $o + $anim;
 			$normal: $normal + $anim;
 		}
 		@else {
 			$webkit: $webkit $anim unquote(',');
 			$moz: $moz $anim unquote(',');
-			$ms: $ms $anim unquote(',');
 			$o: $o $anim unquote(',');
 			$normal: $normal $anim unquote(',');
 		}
@@ -31,7 +28,6 @@ Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-sep
 
   	-webkit-animation: $webkit;
   	-moz-animation: $moz;
-  	-ms-animation: $ms;
   	-o-animation: $o;
   	animation: $normal;      
 }
