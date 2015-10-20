@@ -1,0 +1,77 @@
+@mixin multiple-animations($list) {
+	$webkit: null;
+	$moz: null;
+	$o: null;
+	$normal: null;
+	
+	@for $i from 1 through length($list) {
+		$anim: nth($list, $i);
+		
+		@if $i == length($list) {
+			$webkit: $webkit $anim;
+			$moz: $moz + $anim;
+			$o: $o + $anim;
+			$normal: $normal + $anim;
+		}
+		@else {
+			$webkit: $webkit $anim unquote(',');
+			$moz: $moz $anim unquote(',');
+			$o: $o $anim unquote(',');
+			$normal: $normal $anim unquote(',');
+		}
+	}
+
+  	-webkit-animation: $webkit;
+  	-moz-animation: $moz;
+  	-o-animation: $o;
+  	animation: $normal;      
+}
+
+
+@-webkit-keyframes bg {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+@-moz-keyframes bg {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+@-o-keyframes bg {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+@keyframes bg {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+
+@-moz-keyframes size {
+    from {height: 50px;}
+    to {height: 100px;}
+}
+
+@-webkit-keyframes size {
+    from {height: 50px;}
+    to {height: 100px;}
+}
+
+@-o-keyframes size {
+    from {height: 50px;}
+    to {height: 100px;}
+}
+
+@keyframes size {
+    from {height: 50px;}
+    to {height: 100px;}
+}
+
+
+div {
+    width: 100px;
+    height: 100px;
+    @include multiple-animations(((bg 3s ease-in 2s 2 forwards), (size 3s linear 2s 2 forwards)));
+}
