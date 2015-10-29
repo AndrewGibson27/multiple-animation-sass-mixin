@@ -4,38 +4,38 @@ Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-sep
 ## The code
 ```sass
 @mixin multiple-animations($list) {
-	$webkit: null;
-	$moz: null;
-	$o: null;
-	$normal: null;
+	$webkit: '';
+	$moz: '';
+	$o: '';
+	$normal: '';
 	
 	@for $i from 1 through length($list) {
 		$anim: nth($list, $i);
 		
 		@if $i == length($list) {
-			$webkit: $webkit $anim;
-			$moz: $moz + $anim;
-			$o: $o + $anim;
-			$normal: $normal + $anim;
+			$webkit: unquote($webkit + $anim);
+			$moz: unquote($moz + $anim);
+			$o: unquote($o + $anim);
+			$normal: unquote($normal + $anim);
 		}
 		@else {
-			$webkit: $webkit $anim unquote(',');
-			$moz: $moz $anim unquote(',');
-			$o: $o $anim unquote(',');
-			$normal: $normal $anim unquote(',');
+			$webkit: unquote($webkit + $anim + ',');
+			$moz: unquote($moz + $anim + ',');
+			$o: unquote($o + $anim + ',');
+			$normal: unquote($normal + $anim + ',');
 		}
 	}
 
-  	-webkit-animation: $webkit;
-  	-moz-animation: $moz;
-  	-o-animation: $o;
-  	animation: $normal;      
+  	-webkit-animation: unquote($webkit);
+  	-moz-animation: unquote($moz);
+  	-o-animation: unquote($o);
+  	animation: unquote($normal);      
 }
 ```
 
 ## Usage
 ```sass
-@include multiple-animations(((first-animation 2s), (second-animation 1s)));
+@include multiple-animations(('first-animation 3s ease-in 2s 2 forwards', 'second-animation 3s linear 2s 2 forwards'));
 ```
 
 ## Test it
