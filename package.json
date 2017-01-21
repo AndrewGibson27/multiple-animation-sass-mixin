@@ -13,6 +13,7 @@
   },
   "keywords": [
     "sass",
+		"scss",
     "mixin",
     "css",
     "animation"
