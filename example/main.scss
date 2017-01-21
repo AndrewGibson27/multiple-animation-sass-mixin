@@ -1,77 +1,37 @@
-@mixin multiple-animations($list) {
-	$webkit: '';
-	$moz: '';
-	$o: '';
-	$normal: '';
-	
+@mixin multiple_animations($list) {
+	$combined: '';
+
 	@for $i from 1 through length($list) {
 		$anim: nth($list, $i);
-		
+
 		@if $i == length($list) {
-			$webkit: unquote($webkit + $anim);
-			$moz: unquote($moz + $anim);
-			$o: unquote($o + $anim);
-			$normal: unquote($normal + $anim);
+			$combined: $combined + $anim;
 		}
 		@else {
-			$webkit: unquote($webkit + $anim + ',');
-			$moz: unquote($moz + $anim + ',');
-			$o: unquote($o + $anim + ',');
-			$normal: unquote($normal + $anim + ',');
+			$combined: $combined + $anim + ',';
 		}
 	}
 
-  	-webkit-animation: unquote($webkit);
-  	-moz-animation: unquote($moz);
-  	-o-animation: unquote($o);
-  	animation: unquote($normal);      
-}
-
-
-@-webkit-keyframes bg {
-    from {background-color: red;}
-    to {background-color: yellow;}
-}
-
-@-moz-keyframes bg {
-    from {background-color: red;}
-    to {background-color: yellow;}
-}
-
-@-o-keyframes bg {
-    from {background-color: red;}
-    to {background-color: yellow;}
+	animation: unquote($combined);
 }
 
 @keyframes bg {
-    from {background-color: red;}
-    to {background-color: yellow;}
-}
-
-
-@-moz-keyframes size {
-    from {height: 50px;}
-    to {height: 100px;}
-}
-
-@-webkit-keyframes size {
-    from {height: 50px;}
-    to {height: 100px;}
-}
-
-@-o-keyframes size {
-    from {height: 50px;}
-    to {height: 100px;}
+	from { background-color: red; }
+	to { background-color: yellow; }
 }
 
 @keyframes size {
-    from {height: 50px;}
-    to {height: 100px;}
+	from { height: 50px; }
+	to { height: 100px; }
 }
 
+$animations: (
+	bg 3s ease-in 2s 2 forwards,
+	size 3s linear 2s 2 forwards
+);
 
 div {
-    width: 100px;
-    height: 100px;
-    @include multiple-animations(('bg 3s ease-in 2s 2 forwards', 'size 3s linear 2s 2 forwards'));
+	@include multiple_animations($animations);
+	width: 100px;
+	height: 100px;
 }

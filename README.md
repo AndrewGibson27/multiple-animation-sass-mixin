@@ -1,51 +1,41 @@
-# Sass mixin for multiple animations
-Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-separated list of animations. **This assumes you already have keyframes defined.**
+# SCSS/Sass mixin for multiple animations
+Despite lots of Googling, I couldn't find a Sass mixin that receives a comma-separated list of animations. This assumes you already have keyframes defined. It also doesn't handle vendor prefixes, which is better suited for [Autoprefixer](https://github.com/postcss/autoprefixer).
 
 ## The code
 ```sass
-@mixin multiple-animations($list) {
-	$webkit: '';
-	$moz: '';
-	$o: '';
-	$normal: '';
-	
+@mixin multiple_animations($list) {
+	$combined: '';
+
 	@for $i from 1 through length($list) {
 		$anim: nth($list, $i);
-		
+
 		@if $i == length($list) {
-			$webkit: unquote($webkit + $anim);
-			$moz: unquote($moz + $anim);
-			$o: unquote($o + $anim);
-			$normal: unquote($normal + $anim);
+			$combined: $combined + $anim;
 		}
 		@else {
-			$webkit: unquote($webkit + $anim + ',');
-			$moz: unquote($moz + $anim + ',');
-			$o: unquote($o + $anim + ',');
-			$normal: unquote($normal + $anim + ',');
+			$combined: $combined + $anim + ',';
 		}
 	}
 
-  	-webkit-animation: unquote($webkit);
-  	-moz-animation: unquote($moz);
-  	-o-animation: unquote($o);
-  	animation: unquote($normal);      
+	animation: unquote($combined);
 }
 ```
 
 ## Usage
 ```sass
-@include multiple-animations(('first-animation 3s ease-in 2s 2 forwards', 'second-animation 3s linear 2s 2 forwards'));
+$animations: (
+	bg 3s ease-in 2s 2 forwards,
+	size 3s linear 2s 2 forwards
+);
+
+div {
+	@include multiple_animations($animations);
+	width: 100px;
+	height: 100px;
+}
 ```
 
 ## Test it
-+ Download the zip file
-+ Install grunt and grunt-contrib-sass: `npm install --save-dev`
++ `npm install`
 + `grunt sass`
-+ Open /example/index.html
-
-## Thoughts?
-Tell me.
-
-## License
-MIT
++ Open **/example/index.html**
