@@ -1,37 +1,37 @@
 @mixin multiple_animations($list) {
-	$combined: '';
+  $combined: '';
 
-	@for $i from 1 through length($list) {
-		$anim: nth($list, $i);
+  @for $i from 1 through length($list) {
+    $anim: nth($list, $i);
 
-		@if $i == length($list) {
-			$combined: $combined + $anim;
-		}
-		@else {
-			$combined: $combined + $anim + ',';
-		}
-	}
+    @if $i == length($list) {
+      $combined: $combined + $anim;
+    }
+    @else {
+      $combined: $combined + $anim + ',';
+    }
+  }
 
-	animation: unquote($combined);
+  animation: unquote($combined);
 }
 
 @keyframes bg {
-	from { background-color: red; }
-	to { background-color: yellow; }
+  from { background-color: red; }
+  to { background-color: yellow; }
 }
 
 @keyframes size {
-	from { height: 50px; }
-	to { height: 100px; }
+  from { height: 50px; }
+  to { height: 100px; }
 }
 
 $animations: (
-	bg 3s ease-in 2s 2 forwards,
-	size 3s linear 2s 2 forwards
+  bg 3s ease-in 2s 2 forwards,
+  size 3s linear 2s 2 forwards
 );
 
 div {
-	@include multiple_animations($animations);
-	width: 100px;
-	height: 100px;
+  @include multiple_animations($animations);
+  width: 100px;
+  height: 100px;
 }
