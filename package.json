@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A Sass mixin for including multiple CSS animations on an element",
   "author": "Andrew Gibson <atgibson27@gmail.com>",
-  "main": "index.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/AndrewGibson27/multiple-animation-sass-mixin"
